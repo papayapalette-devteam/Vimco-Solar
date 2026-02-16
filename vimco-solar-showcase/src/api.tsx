@@ -1,8 +1,8 @@
 import axios from "axios";
 const instance=axios.create({
    
-          baseURL:'http://localhost:5000/'
-        //   baseURL:"https://api.intelliviaai.com/"
+          // baseURL:'http://localhost:5000/'
+          baseURL:"https://vimco-solar.onrender.com/"
 
        
 })
