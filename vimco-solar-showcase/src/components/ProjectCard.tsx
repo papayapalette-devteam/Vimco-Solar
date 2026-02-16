@@ -37,8 +37,8 @@ const ProjectCard = ({ project, isPublicView = false }: ProjectCardProps) => {
         {/* Image Section */}
         <div className="relative aspect-[4/3] overflow-hidden">
           <img
-            src={project.images[0]}
-            alt={project.title}
+            src={project?.images?.[0]}
+            alt={project?.title}
             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             loading="lazy"
           />
@@ -49,11 +49,11 @@ const ProjectCard = ({ project, isPublicView = false }: ProjectCardProps) => {
             variant="outline" 
             className={`absolute top-3 left-3 capitalize ${projectTypeStyles[project.project_type]}`}
           >
-            {project.project_type}
+            {project?.project_type}
           </Badge>
 
           {/* Image Count */}
-          {project.images.length > 1 && (
+          {project?.images?.length > 1 && (
             <div className="absolute top-3 right-3 rounded-full bg-foreground/70 px-2 py-1 text-xs text-background">
               {project.images.length} photos
             </div>
@@ -63,7 +63,7 @@ const ProjectCard = ({ project, isPublicView = false }: ProjectCardProps) => {
           <div className="absolute bottom-3 left-3 right-3 flex items-center gap-3 text-sm text-background">
             <div className="flex items-center gap-1">
               <Zap className="h-4 w-4 text-solar-gold" />
-              <span className="font-medium">{project.capacity}</span>
+              <span className="font-medium">{project?.capacity}</span>
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Search, Filter, Loader2, Sun } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -8,9 +8,35 @@ import Footer from '@/components/Footer';
 import ProjectCard from '@/components/ProjectCard';
 import StatsBar from '@/components/StatsBar';
 import { useProjects } from '@/hooks/useProjects';
+import api from '@/./api';
 
 const Projects = () => {
-  const { data: projects = [], isLoading, error } = useProjects();
+  // const { data: projects = [], isLoading, error } = useProjects();
+
+const [projects, setprojects] = useState([]);
+const [isLoading, setIsLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
+
+const get_projects = async () => {
+  try {
+    setIsLoading(true);
+    setError(null);
+
+    const resp = await api.get('api/project/get-project');
+    setprojects(resp.data.data);
+  } catch (err: unknown) {
+    console.log(err);
+    setError("Failed to fetch projects");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+useEffect(() => {
+  get_projects();
+}, []);
+
+
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState<string>('all');
 

@@ -206,7 +206,7 @@ Website: https://vimcosolar.com
           <div className="relative rounded-xl overflow-hidden bg-muted">
             <div className="aspect-video relative">
               <img
-                src={project.images[currentImageIndex]}
+                src={project?.images?.[currentImageIndex]}
                 alt={`${project.title} - Image ${currentImageIndex + 1}`}
                 className="w-full h-full object-cover"
               />
@@ -222,7 +222,7 @@ Website: https://vimcosolar.com
               </Button>
 
               {/* Navigation arrows */}
-              {project.images.length > 1 && (
+              {project?.images?.length > 1 && (
                 <>
                   <Button
                     variant="secondary"
@@ -245,14 +245,14 @@ Website: https://vimcosolar.com
 
               {/* Image counter */}
               <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-foreground/70 text-background px-3 py-1 rounded-full text-sm">
-                {currentImageIndex + 1} / {project.images.length}
+                {currentImageIndex + 1} / {project?.images?.length}
               </div>
             </div>
 
             {/* Thumbnails */}
-            {project.images.length > 1 && (
+            {project?.images?.length > 1 && (
               <div className="flex gap-2 p-3 overflow-x-auto">
-                {project.images.map((img, index) => (
+                {project?.images?.map((img, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentImageIndex(index)}
@@ -332,7 +332,7 @@ Website: https://vimcosolar.com
           <div className="flex flex-wrap gap-3">
             <Button variant="solar" onClick={downloadAllImages}>
               <ImageDown className="h-4 w-4" />
-              Download All Images ({project.images.length})
+              Download All Images ({project?.images?.length})
             </Button>
             <Button variant="navy" onClick={downloadProjectDetails}>
               <FileDown className="h-4 w-4" />

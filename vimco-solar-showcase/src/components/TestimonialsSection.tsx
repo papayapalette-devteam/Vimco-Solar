@@ -1,8 +1,11 @@
 import { Star, Quote } from 'lucide-react';
 import { useTestimonials } from '@/hooks/useSiteContent';
+import test from 'node:test';
 
 const TestimonialsSection = () => {
   const { data: testimonials = [], isLoading } = useTestimonials();
+
+ 
 
   // Only show active testimonials
   const activeTestimonials = testimonials.filter(t => t.is_active);

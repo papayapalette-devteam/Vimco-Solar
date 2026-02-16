@@ -7,12 +7,12 @@ interface StatsBarProps {
 
 const StatsBar = ({ projects }: StatsBarProps) => {
   const totalCapacity = projects.reduce((acc, p) => {
-    const capacity = parseFloat(p.capacity.replace(/[^0-9.]/g, ''));
+    const capacity = parseFloat(p?.capacity?.replace(/[^0-9.]/g, ''));
     return acc + (isNaN(capacity) ? 0 : capacity);
   }, 0);
 
-  const uniqueLocations = new Set(projects.map(p => p.location.split(',')[0].trim())).size;
-  const totalImages = projects.reduce((acc, p) => acc + p.images.length, 0);
+  const uniqueLocations = new Set(projects?.map(p => p?.location?.split(',')[0].trim())).size;
+  const totalImages = projects?.reduce((acc, p) => acc + p?.images?.length, 0);
 
   const stats = [
     {

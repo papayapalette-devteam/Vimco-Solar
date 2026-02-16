@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { useAuth } from '@/hooks/useAuth';
+// import { useAuth } from '@/hooks/useAuth';
 import { Loader2, Mail, Lock, Sun } from 'lucide-react';
 
 const emailSchema = z.string().email('Please enter a valid email address');
@@ -23,98 +23,55 @@ const Auth = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
   
-  const { user, signIn, signUp, loading } = useAuth();
+  // const { user, signIn, signUp, loading } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  useEffect(() => {
-    if (user && !loading) {
-      navigate('/admin');
-    }
-  }, [user, loading, navigate]);
-
-  const validateForm = () => {
-    const newErrors: { email?: string; password?: string } = {};
-    
-    const emailResult = emailSchema.safeParse(email);
-    if (!emailResult.success) {
-      newErrors.email = emailResult.error.errors[0].message;
-    }
-
-    const passwordResult = passwordSchema.safeParse(password);
-    if (!passwordResult.success) {
-      newErrors.password = passwordResult.error.errors[0].message;
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  // const[loading,setloading]=useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!validateForm()) return;
+  e.preventDefault();
 
-    setIsSubmitting(true);
+  setIsSubmitting(true);
 
-    try {
-      if (isLogin) {
-        const { error } = await signIn(email, password);
-        if (error) {
-          if (error.message.includes('Invalid login credentials')) {
-            toast({
-              title: 'Login Failed',
-              description: 'Invalid email or password. Please try again.',
-              variant: 'destructive',
-            });
-          } else {
-            toast({
-              title: 'Login Failed',
-              description: error.message,
-              variant: 'destructive',
-            });
-          }
-          return;
-        }
-        toast({
-          title: 'Welcome Back!',
-          description: 'You have successfully logged in.',
-        });
-      } else {
-        const { error } = await signUp(email, password);
-        if (error) {
-          if (error.message.includes('User already registered')) {
-            toast({
-              title: 'Signup Failed',
-              description: 'An account with this email already exists. Please login instead.',
-              variant: 'destructive',
-            });
-          } else {
-            toast({
-              title: 'Signup Failed',
-              description: error.message,
-              variant: 'destructive',
-            });
-          }
-          return;
-        }
-        toast({
-          title: 'Account Created!',
-          description: 'Your account has been created successfully.',
-        });
-      }
-    } catch (error) {
+  try {
+    // 🔐 Hardcoded credentials
+    if (email === "admin@gmail.com" && password === "admin@123") {
+      
+      // create fake token
+      const token = "admin-token-" + Date.now();
+
+      // store in localStorage
+      localStorage.setItem("adminToken", token);
+
       toast({
-        title: 'Error',
-        description: 'An unexpected error occurred. Please try again.',
-        variant: 'destructive',
+        title: "Login Successful",
+        description: "Welcome Admin!",
       });
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
-  if (loading) {
+      navigate("/admin");
+
+    } else {
+      toast({
+        title: "Login Failed",
+        description: "Invalid email or password",
+        variant: "destructive",
+      });
+    }
+
+  } catch (error) {
+    toast({
+      title: "Error",
+      description: "Something went wrong",
+      variant: "destructive",
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
+
+  if (isSubmitting) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
@@ -195,7 +152,7 @@ const Auth = () => {
               {isSubmitting ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  {isLogin ? 'Signing in...' : 'Creating account...'}
+                  Admin Login
                 </>
               ) : (
                 isLogin ? 'Sign In' : 'Create Account'

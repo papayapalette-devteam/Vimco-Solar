@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Project, ProjectFormData } from '@/types/project';
 import api from "@/api"
-import { log } from 'console';
+
 
 export const useProjects = () => {
   return useQuery({

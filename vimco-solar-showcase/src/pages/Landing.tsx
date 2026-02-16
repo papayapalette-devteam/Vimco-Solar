@@ -12,12 +12,41 @@ import WhyChooseUs from '@/components/WhyChooseUs';
 import CTABanner from '@/components/CTABanner';
 import { useProjects } from '@/hooks/useProjects';
 import heroImage from '@/assets/hero-solar-india.jpg';
+import { useEffect, useState } from 'react';
+import api from '@/./api';
+
 
 const Landing = () => {
-  const { data: projects = [], isLoading } = useProjects();
+  // const { data: projects = [], isLoading } = useProjects();
+
+  const [projects, setprojects] = useState([]);
+const [isLoading, setIsLoading] = useState(true);
+const [error, setError] = useState<string | null>(null);
+
+const get_projects = async () => {
+  try {
+    setIsLoading(true);
+    setError(null);
+
+    const resp = await api.get('api/project/get-project');
+    setprojects(resp.data.data);
+  } catch (err: unknown) {
+    console.log(err);
+    setError("Failed to fetch projects");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+useEffect(() => {
+  get_projects();
+}, []);
   
   // Only show first 3 projects
   const displayedProjects = projects.slice(0, 3);
+
+
+  
 
   return (
     <div className="min-h-screen bg-background">
@@ -192,7 +221,7 @@ const Landing = () => {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8 sm:mb-10">
                 {displayedProjects.map((project, index) => (
                   <div
-                    key={project.id}
+                    key={project._id}
                     className="animate-slide-up opacity-0"
                     style={{ 
                       animationDelay: `${index * 100}ms`,

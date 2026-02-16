@@ -10,48 +10,40 @@ import AdminEvents from '@/components/admin/AdminEvents';
 import AdminCertificates from '@/components/admin/AdminCertificates';
 import AdminLeads from '@/components/admin/AdminLeads';
 import AdminSiteSettings from '@/components/admin/AdminSiteSettings';
-import { useAuth } from '@/hooks/useAuth';
 import { useToast } from '@/hooks/use-toast';
 import AdminHeader from '@/components/AdminHeader';
 
 const Admin = () => {
-  const { user, isAdmin, loading, signOut } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
+
   const [activeTab, setActiveTab] = useState('projects');
+  const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false);
 
+  // ✅ CHECK LOCAL STORAGE TOKEN
   useEffect(() => {
-    if (!loading && !user) {
-      navigate('/auth');
-    }
-  }, [user, loading, navigate]);
+    const token = localStorage.getItem("adminToken");
 
-  useEffect(() => {
-    if (!loading && user && !isAdmin) {
-      toast({
-        title: 'Access Denied',
-        description: 'You do not have admin privileges.',
-        variant: 'destructive',
-      });
-      navigate('/');
-    }
-  }, [isAdmin, loading, user, navigate, toast]);
-
-  const handleSignOut = async () => {
-    const { error } = await signOut();
-    if (error) {
-      toast({
-        title: 'Error',
-        description: 'Failed to sign out. Please try again.',
-        variant: 'destructive',
-      });
+    if (!token) {
+      navigate("/auth");
     } else {
-      toast({
-        title: 'Signed Out',
-        description: 'You have been successfully signed out.',
-      });
-      navigate('/');
+      setIsAdmin(true);
     }
+
+    setLoading(false);
+  }, [navigate]);
+
+  // ✅ LOGOUT
+  const handleSignOut = () => {
+    localStorage.removeItem("adminToken");
+
+    toast({
+      title: 'Signed Out',
+      description: 'You have been successfully signed out.',
+    });
+
+    navigate('/');
   };
 
   if (loading) {
@@ -62,7 +54,7 @@ const Admin = () => {
     );
   }
 
-  if (!user || !isAdmin) {
+  if (!isAdmin) {
     return null;
   }
 
@@ -81,6 +73,7 @@ const Admin = () => {
       <AdminHeader />
       
       <main className="container mx-auto px-4 py-6 md:py-8">
+        
         {/* Admin Header */}
         <section className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div className="flex items-center gap-3">
@@ -92,7 +85,7 @@ const Admin = () => {
                 Admin Dashboard
               </h1>
               <p className="text-muted-foreground text-sm">
-                {user.email}
+                admin@gmail.com
               </p>
             </div>
           </div>
