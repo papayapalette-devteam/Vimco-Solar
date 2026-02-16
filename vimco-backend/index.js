@@ -23,7 +23,7 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 /* ---------- CORS (VERY IMPORTANT ORDER) ---------- */
 const corsOptions = {
   origin: [
-    "https://admin.made4ever.in",
+    "https://vimco-solar.vercel.app",
     "https://bureau.made4ever.in",
     "https://made4ever.in",
     "http://localhost:8080",
