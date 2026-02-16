@@ -1,0 +1,305 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@600;700;800&display=swap');
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 215 45% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 45% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 45% 15%;
+
+    --primary: 210 65% 25%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 45 95% 55%;
+    --secondary-foreground: 215 45% 15%;
+
+    --muted: 210 20% 94%;
+    --muted-foreground: 215 15% 45%;
+
+    --accent: 195 70% 40%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 20% 88%;
+    --input: 210 20% 88%;
+    --ring: 210 65% 25%;
+
+    --radius: 0.75rem;
+
+    /* Custom VIMCO tokens */
+    --solar-gold: 45 95% 55%;
+    --solar-gold-light: 45 95% 70%;
+    --navy-deep: 210 65% 20%;
+    --navy-light: 210 50% 35%;
+    --teal-panel: 195 70% 40%;
+    --green-eco: 160 60% 45%;
+
+    /* Indian Flag Colors */
+    --india-saffron: 24 95% 53%;
+    --india-white: 0 0% 100%;
+    --india-green: 120 50% 35%;
+    --india-navy: 220 60% 25%;
+
+    /* Gradients */
+    --gradient-solar: linear-gradient(135deg, hsl(45 95% 55%) 0%, hsl(35 90% 50%) 100%);
+    --gradient-navy: linear-gradient(135deg, hsl(210 65% 25%) 0%, hsl(210 50% 35%) 100%);
+    --gradient-hero: linear-gradient(180deg, hsl(210 20% 98%) 0%, hsl(210 30% 95%) 100%);
+    --gradient-india: linear-gradient(135deg, hsl(24 95% 53%) 0%, hsl(45 95% 55%) 50%, hsl(120 50% 35%) 100%);
+    --gradient-india-subtle: linear-gradient(135deg, hsl(24 95% 53% / 0.1) 0%, hsl(45 95% 55% / 0.1) 50%, hsl(120 50% 35% / 0.1) 100%);
+
+    /* Shadows */
+    --shadow-soft: 0 4px 20px -2px hsl(210 65% 25% / 0.08);
+    --shadow-card: 0 8px 30px -4px hsl(210 65% 25% / 0.12);
+    --shadow-glow: 0 0 40px hsl(45 95% 55% / 0.25);
+    --shadow-saffron: 0 4px 20px -2px hsl(24 95% 53% / 0.3);
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 215 45% 8%;
+    --foreground: 210 20% 95%;
+
+    --card: 215 40% 12%;
+    --card-foreground: 210 20% 95%;
+
+    --popover: 215 40% 12%;
+    --popover-foreground: 210 20% 95%;
+
+    --primary: 45 95% 55%;
+    --primary-foreground: 215 45% 10%;
+
+    --secondary: 210 50% 25%;
+    --secondary-foreground: 210 20% 95%;
+
+    --muted: 215 30% 18%;
+    --muted-foreground: 210 15% 60%;
+
+    --accent: 195 70% 45%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 215 30% 20%;
+    --input: 215 30% 20%;
+    --ring: 45 95% 55%;
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+  }
+}
+
+@layer utilities {
+  .text-gradient-solar {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-solar);
+  }
+
+  .text-gradient-india {
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-india);
+  }
+
+  .bg-gradient-solar {
+    background-image: var(--gradient-solar);
+  }
+
+  .bg-gradient-navy {
+    background-image: var(--gradient-navy);
+  }
+
+  .bg-gradient-india {
+    background-image: var(--gradient-india);
+  }
+
+  .bg-gradient-india-subtle {
+    background-image: var(--gradient-india-subtle);
+  }
+
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+
+  .shadow-saffron {
+    box-shadow: var(--shadow-saffron);
+  }
+}
+
+@layer components {
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out forwards;
+  }
+
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+
+  /* Indian flag stripe accent */
+  .india-stripe {
+    position: relative;
+  }
+  
+  .india-stripe::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, hsl(24 95% 53%) 33%, hsl(0 0% 100%) 33% 66%, hsl(120 50% 35%) 66%);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+@keyframes scaleIn {
+  from { 
+    opacity: 0; 
+    transform: scale(0.9); 
+  }
+  to { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+}
+
+@keyframes float {
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  50% { 
+    transform: translateY(-20px); 
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Solar gold utility classes */
+.fill-solar-gold {
+  fill: hsl(var(--solar-gold));
+}
+
+.text-solar-gold {
+  color: hsl(var(--solar-gold));
+}
+
+.bg-solar-gold {
+  background-color: hsl(var(--solar-gold));
+}
+
+.bg-solar-gold-light {
+  background-color: hsl(var(--solar-gold-light));
+}
+
+.hover\:bg-solar-gold-light:hover {
+  background-color: hsl(var(--solar-gold-light));
+}
+
+/* Indian colors utility classes */
+.text-india-saffron {
+  color: hsl(var(--india-saffron));
+}
+
+.text-india-green {
+  color: hsl(var(--india-green));
+}
+
+.bg-india-saffron {
+  background-color: hsl(var(--india-saffron));
+}
+
+.bg-india-green {
+  background-color: hsl(var(--india-green));
+}
+
+.border-india-saffron {
+  border-color: hsl(var(--india-saffron));
+}
+
+.border-india-green {
+  border-color: hsl(var(--india-green));
+}
