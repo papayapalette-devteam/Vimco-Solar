@@ -3,6 +3,7 @@ const router = express.Router();
 const projectController = require("../controllers/project/project");
 
 router.post("/add-project", projectController.createProject);
+router.post("/bulk-upload-project", projectController.importProjectsFromJson);
 router.get("/get-project", projectController.getAllProjects);
 router.get("/get-project-byid/:id", projectController.getSingleProject);
 router.put("/update-project/:id", projectController.updateProject);

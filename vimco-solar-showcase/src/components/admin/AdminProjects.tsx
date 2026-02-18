@@ -7,12 +7,17 @@ import ProjectCard from '@/components/ProjectCard';
 import StatsBar from '@/components/StatsBar';
 import UploadProjectModal from '@/components/UploadProjectModal';
 import { useProjects } from '@/hooks/useProjects';
+import ImportProject from "./importproject";
+
+
 
 const AdminProjects = () => {
   const { data: projects = [], isLoading, error } = useProjects();
   const [isUploadOpen, setIsUploadOpen] = useState(false);
+  const [IsImportOpen, setIsImportOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState<string>('all');
+  
 
   const filteredProjects = projects.filter(project => {
     const matchesSearch = 
@@ -55,6 +60,11 @@ const AdminProjects = () => {
               <SelectItem value="industrial">Industrial</SelectItem>
             </SelectContent>
           </Select>
+
+            <Button variant="solar" onClick={() => setIsImportOpen(true)}>
+            <Plus className="h-4 w-4 mr-2" />
+            Import Project
+          </Button>
 
           <Button variant="solar" onClick={() => setIsUploadOpen(true)}>
             <Plus className="h-4 w-4 mr-2" />
@@ -107,6 +117,25 @@ const AdminProjects = () => {
         isOpen={isUploadOpen}
         onClose={() => setIsUploadOpen(false)}
       />
+
+      {IsImportOpen && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div className="bg-white p-6 rounded-lg w-[500px] relative">
+
+      {/* Close Button */}
+      <button
+        className="absolute top-2 right-3 text-xl"
+        onClick={() => setIsImportOpen(false)}
+      >
+        ✕
+      </button>
+
+      <ImportProject />
+
+    </div>
+  </div>
+)}
+
     </div>
   );
 };

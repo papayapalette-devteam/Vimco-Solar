@@ -160,7 +160,7 @@ const removeImage = (index: number) => {
   }));
 };
 
-console.log(formData);
+
 
 
 

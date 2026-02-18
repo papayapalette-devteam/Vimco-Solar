@@ -115,3 +115,25 @@ exports.deleteProject = async (req, res) => {
     res.status(500).json({ success: false, message: err.message });
   }
 };
+
+
+exports.importProjectsFromJson = async (req, res) => {
+  try {
+    const { projects } = req.body;
+
+    if (!projects || projects.length === 0) {
+      return res.status(400).json({ message: "No project data provided" });
+    }
+
+    await Project.insertMany(projects);
+
+    res.status(200).json({
+      success: true,
+      message: `${projects.length} Projects Imported Successfully`
+    });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Import failed" });
+  }
+};
