@@ -9,7 +9,7 @@ const projectValidationSchema  = Joi.object({
 
   completed_date: Joi.date().optional(),
 
-  description: Joi.string().min(5).optional(),
+  description: Joi.string().allow("").optional(),
 
   client_name: Joi.string().trim().optional(),
 

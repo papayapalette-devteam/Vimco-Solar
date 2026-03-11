@@ -11,6 +11,7 @@ import { Project } from '@/types/project';
 import { useUpdateProject, uploadProjectImage } from '@/hooks/useProjects';
 import api from "@/./api"
 import { log } from 'console';
+import axios from "axios";
 
 interface EditProjectModalProps {
   project: Project;
@@ -168,15 +169,15 @@ const removeImage = (index: number) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    const totalImages = existingImages.length + newImages.length;
-    if (!formData.title || !formData.location || !formData.capacity || totalImages === 0) {
-      toast({
-        title: "Missing Information",
-        description: "Please fill in all required fields and have at least one image.",
-        variant: "destructive",
-      });
-      return;
-    }
+    // const totalImages = existingImages.length + newImages.length;
+    // if (!formData.title || !formData.location || !formData.capacity || totalImages === 0) {
+    //   toast({
+    //     title: "Missing Information",
+    //     description: "Please fill in all required fields and have at least one image.",
+    //     variant: "destructive",
+    //   });
+    //   return;
+    // }
 
     setIsSubmitting(true);
 
@@ -192,17 +193,26 @@ const removeImage = (index: number) => {
       });
       
       onClose();
-    } catch {
-      toast({
-        title: "Error",
-        description: "Failed to update project. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
+    } catch (error: unknown) {
+  let message = "Failed to add project. Please try again.";
+
+  if (axios.isAxiosError(error)) {
+    message = error.response?.data?.message || message;
+  } else if (error instanceof Error) {
+    message = error.message;
+  }
+
+  toast({
+    title: "Error",
+    description: message,
+    variant: "destructive",
+  });
+}finally {
       setIsSubmitting(false);
     }
   };
 
+  
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
